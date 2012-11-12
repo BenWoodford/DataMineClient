@@ -17,15 +17,21 @@ package io.datamine.DataMineClient;
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import io.datamine.DataMineClient.Commands.Commands;
+import io.datamine.DataMineClient.DataWrappers.LogEvent;
+import io.datamine.DataMineClient.Listeners.Blocks;
+
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class DataMineClient extends JavaPlugin {
 
 	//ClassListeners
-	private DataMineClientCommandExecutor commandExecutor;
-	private DataMineClientEventListener eventListener;
+	private Commands commandExecutor;
+	private Blocks eventListener;
 	//ClassListeners
+	
+	private DataMineQueue queue = new DataMineQueue();
 
 	public void onDisable() {
 		// add any code you want to be executed when your plugin is disabled
@@ -34,8 +40,8 @@ public class DataMineClient extends JavaPlugin {
 	public void onEnable() { 
 
 		PluginManager pm = this.getServer().getPluginManager();
-		commandExecutor = new DataMineClientCommandExecutor(this);
-		eventListener = new DataMineClientEventListener(this);
+		commandExecutor = new Commands(this);
+		eventListener = new Blocks(this);
 
 		getCommand("datamine").setExecutor(commandExecutor);
 
@@ -45,4 +51,15 @@ public class DataMineClient extends JavaPlugin {
 
 		// do any other initialisation you need here...
 	}
+	
+	public DataMineQueue getQueue()
+	{
+		return this.queue;
+	}
+	
+	public void addToQueue(LogEvent event)
+	{
+		this.queue.addEntry(event.world, event);
+	}
+	
 }
