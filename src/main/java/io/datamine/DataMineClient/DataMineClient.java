@@ -33,6 +33,8 @@ public class DataMineClient extends JavaPlugin {
 	private Entities entityEventListener;
 	//ClassListeners
 	
+	private DataMineNonEvent nonEventListener;
+	
 	PluginManager pm;
 	
 	private DataMineQueue queue;
@@ -51,6 +53,8 @@ public class DataMineClient extends JavaPlugin {
 		commandExecutor = new Commands(this);
 		blockEventListener = new Blocks(this);
 		entityEventListener = new Entities(this);
+		
+		nonEventListener = new DataMineNonEvent(this);
 		
 		queue = new DataMineQueue(this);
 
@@ -90,6 +94,8 @@ public class DataMineClient extends JavaPlugin {
 		asyncTaskId = this.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
 			public void run()
 			{
+				getLogger().info("Pulling non-event data.");
+				nonEventListener.getData();
 				getLogger().info("Processing Queue...");
 				sendQueue();
 			}
