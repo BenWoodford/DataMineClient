@@ -20,6 +20,7 @@ package io.datamine.DataMineClient;
 import io.datamine.DataMineClient.Commands.Commands;
 import io.datamine.DataMineClient.DataWrappers.LogEvent;
 import io.datamine.DataMineClient.Listeners.Blocks;
+import io.datamine.DataMineClient.Listeners.Entities;
 
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,7 +29,8 @@ public class DataMineClient extends JavaPlugin {
 
 	//ClassListeners
 	private Commands commandExecutor;
-	private Blocks entityEventListener;
+	private Blocks blockEventListener;
+	private Entities entityEventListener;
 	//ClassListeners
 	
 	private DataMineQueue queue;
@@ -37,6 +39,7 @@ public class DataMineClient extends JavaPlugin {
 
 	public void onDisable() {
 		this.entityEventListener = null;
+		this.blockEventListener = null;
 		this.commandExecutor = null;
 		this.getServer().getScheduler().cancelTask(asyncTaskId);
 	}
@@ -44,7 +47,8 @@ public class DataMineClient extends JavaPlugin {
 	public void onEnable() {		
 		PluginManager pm = this.getServer().getPluginManager();
 		commandExecutor = new Commands(this);
-		entityEventListener = new Blocks(this);
+		blockEventListener = new Blocks(this);
+		entityEventListener = new Entities(this);
 		
 		queue = new DataMineQueue(this);
 
