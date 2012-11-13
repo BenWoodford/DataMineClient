@@ -57,6 +57,7 @@ public class DataMineClient extends JavaPlugin {
 		// you can register multiple classes to handle events if you want
 		// just call pm.registerEvents() on an instance of each class
 		pm.registerEvents(entityEventListener, this);
+		pm.registerEvents(blockEventListener, this);
 
 		this.getConfig().addDefault("api.endpoint", "http://api.loadingchunks.net/datamine/endpoint.php");
 		this.getConfig().addDefault("api.key", "idjekowefkokwfjiwejigrjoeskjidfher939iejfisjiwer93i0ew");
