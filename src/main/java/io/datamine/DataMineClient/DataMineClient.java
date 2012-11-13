@@ -28,28 +28,33 @@ public class DataMineClient extends JavaPlugin {
 
 	//ClassListeners
 	private Commands commandExecutor;
-	private Blocks eventListener;
+	private Blocks entityEventListener;
 	//ClassListeners
 	
-	private DataMineQueue queue = new DataMineQueue();
+	private DataMineQueue queue;
 
 	public void onDisable() {
 		// add any code you want to be executed when your plugin is disabled
 	}
 
-	public void onEnable() { 
-
+	public void onEnable() {		
 		PluginManager pm = this.getServer().getPluginManager();
 		commandExecutor = new Commands(this);
-		eventListener = new Blocks(this);
+		entityEventListener = new Blocks(this);
+		
+		queue = new DataMineQueue(this);
 
 		getCommand("datamine").setExecutor(commandExecutor);
 
 		// you can register multiple classes to handle events if you want
 		// just call pm.registerEvents() on an instance of each class
-		pm.registerEvents(eventListener, this);
+		pm.registerEvents(entityEventListener, this);
 
-		// do any other initialisation you need here...
+		this.getConfig().addDefault("api.endpoint", "http://api.loadingchunks.net/datamine/endpoint.php");
+		this.getConfig().addDefault("api.key", "idjekowefkokwfjiwejigrjoeskjidfher939iejfisjiwer93i0ew");
+		this.getConfig().options().copyDefaults(true);
+		
+		this.saveConfig();
 	}
 	
 	public DataMineQueue getQueue()

@@ -10,6 +10,13 @@ public class DataMineQueue {
 	private HashMap<String, ArrayList<HashMap<String, Object>>> mainQueue = new HashMap<String, ArrayList<HashMap<String, Object>>>();
 	private HashMap<String, HashMap<String, HashMap<String, Object>>> stackedQueue = new HashMap<String, HashMap<String, HashMap<String, Object>>>();
 	
+	private DataMineClient plugin;
+	
+	public DataMineQueue(DataMineClient plugin)
+	{
+		this.plugin = plugin;
+	}
+	
 	public void addWorld(World w)
 	{
 		ArrayList<HashMap<String, Object>> mainQueue = new ArrayList<HashMap<String, Object>>();
@@ -50,5 +57,22 @@ public class DataMineQueue {
 		}
 	}
 	
-	
+	@SuppressWarnings("unchecked") // I hate using this.
+	public void send()
+	{
+		JSONObject json = new JSONObject();
+		
+		try {
+			json.put("main", this.mainQueue.clone());
+			json.put("stacked", this.stackedQueue.clone());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(json.size() > 0)
+		{
+			DataMineSender sender = new DataMineSender(this.plugin);
+			sender.sendJSON(json.toJSONString());
+		}
+	}
 }
