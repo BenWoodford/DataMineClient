@@ -32,7 +32,8 @@ public class LogEvent {
 	{
 		HashMap<String, Object> ret = new HashMap<String, Object>();
 		
-		ret.put("chunk", this.chunk.toHashMap());
+		if(chunk != null)
+			ret.put("chunk", this.chunk.toHashMap());
 		ret.put("type", this.type);
 		ret.put("additional", this.additional);
 		
