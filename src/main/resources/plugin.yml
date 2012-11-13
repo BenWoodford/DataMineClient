@@ -1,8 +1,0 @@
-name: DataMineClient
-main: io.datamine.DataMineClient.DataMineClient
-version: 0.1
-
-commands:
-   datamine:
-      description: A Command
-      usage: /<command> 
