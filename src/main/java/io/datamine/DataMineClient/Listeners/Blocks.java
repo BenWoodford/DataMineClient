@@ -22,6 +22,7 @@ import io.datamine.DataMineClient.DataWrappers.Chunk;
 import io.datamine.DataMineClient.DataWrappers.LogEvent;
 import io.datamine.DataMineClient.DataWrappers.World;
 
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 
@@ -33,6 +34,7 @@ public class Blocks implements Listener {
 		this.plugin = plugin;
 	}
 
+	@EventHandler
 	public void onRedstone(BlockRedstoneEvent event)
 	{
 		this.plugin.addToQueue(new LogEvent(new World(event.getBlock().getWorld()), new Chunk(event.getBlock().getLocation()), "redstone", true, null));
