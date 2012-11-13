@@ -37,7 +37,7 @@ public class DataMineSender {
 		    printout = new DataOutputStream(urlConn.getOutputStream ());
 
 		    String content = "";
-		    content += "username=" + URLEncoder.encode(json, "UTF-8");
+		    content += "data=" + URLEncoder.encode(json, "UTF-8");
 		    content += "&key=" + URLEncoder.encode(this.plugin.getConfig().getString("api.key"), "UTF-8");
 
 		    printout.writeBytes (content);
