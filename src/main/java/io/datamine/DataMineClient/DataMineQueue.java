@@ -31,7 +31,6 @@ public class DataMineQueue {
 			/* We stack by chunk
 			 * So throw the chunk coordinates in the key.
 			 */
-			// Note to self: Restructure to use world names. ASAP
 			HashMap<String, HashMap<String, Object>> tempStore = this.stackedQueue.get(w.toString());
 			
 			if(tempStore.containsKey(event.type + "_" + event.chunk.x + "-" + event.chunk.y + "-" + event.chunk.z))
