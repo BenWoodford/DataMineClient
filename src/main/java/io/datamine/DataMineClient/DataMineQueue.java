@@ -65,6 +65,8 @@ public class DataMineQueue {
 		try {
 			json.put("main", this.mainQueue.clone());
 			json.put("stacked", this.stackedQueue.clone());
+			this.mainQueue.clear();
+			this.stackedQueue.clear();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -32,9 +32,13 @@ public class DataMineClient extends JavaPlugin {
 	//ClassListeners
 	
 	private DataMineQueue queue;
+	
+	public int asyncTaskId;
 
 	public void onDisable() {
-		// add any code you want to be executed when your plugin is disabled
+		this.entityEventListener = null;
+		this.commandExecutor = null;
+		this.getServer().getScheduler().cancelTask(asyncTaskId);
 	}
 
 	public void onEnable() {		
@@ -52,9 +56,11 @@ public class DataMineClient extends JavaPlugin {
 
 		this.getConfig().addDefault("api.endpoint", "http://api.loadingchunks.net/datamine/endpoint.php");
 		this.getConfig().addDefault("api.key", "idjekowefkokwfjiwejigrjoeskjidfher939iejfisjiwer93i0ew");
+		this.getConfig().addDefault("api.polling", 60);
 		this.getConfig().options().copyDefaults(true);
-		
 		this.saveConfig();
+		
+		this.startScheduler(this.getConfig().getInt("api.polling"));
 	}
 	
 	public DataMineQueue getQueue()
@@ -65,6 +71,23 @@ public class DataMineClient extends JavaPlugin {
 	public void addToQueue(LogEvent event)
 	{
 		this.queue.addEntry(event.world, event);
+	}
+	
+	public void sendQueue()
+	{
+		this.queue.send();
+	}
+	
+	public void startScheduler(int seconds)
+	{
+		asyncTaskId = this.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
+			public void run()
+			{
+				getLogger().info("Processing Queue...");
+				sendQueue();
+			}
+		}
+		,20 * seconds, 20 * seconds);
 	}
 	
 }
