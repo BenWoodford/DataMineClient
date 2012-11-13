@@ -28,6 +28,9 @@ public class DataMineQueue {
 	
 	public void addEntry(World w, LogEvent event)
 	{
+		if(!this.mainQueue.containsKey(w.toString()))
+			addWorld(w);
+
 		if(!event.stackable)
 		{
 			ArrayList<HashMap<String, Object>> tmpHash = (ArrayList<HashMap<String, Object>>) this.mainQueue.get(w.toString());
