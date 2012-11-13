@@ -53,6 +53,9 @@ public class DataMineQueue {
 			} else {
 				HashMap<String, Object> tmphash = new HashMap<String, Object>();
 				tmphash.put("count", 1);
+				tmphash.put("x", event.chunk.x);
+				tmphash.put("y", event.chunk.z);
+				tmphash.put("z", event.chunk.z);
 				tempStore.put(event.type + "_" + event.chunk.x + "-" + event.chunk.y + "-" + event.chunk.z, tmphash);
 			}
 			

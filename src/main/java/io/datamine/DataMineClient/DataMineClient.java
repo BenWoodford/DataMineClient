@@ -33,6 +33,8 @@ public class DataMineClient extends JavaPlugin {
 	private Entities entityEventListener;
 	//ClassListeners
 	
+	PluginManager pm;
+	
 	private DataMineQueue queue;
 	
 	public int asyncTaskId;
@@ -45,7 +47,7 @@ public class DataMineClient extends JavaPlugin {
 	}
 
 	public void onEnable() {		
-		PluginManager pm = this.getServer().getPluginManager();
+		pm = this.getServer().getPluginManager();
 		commandExecutor = new Commands(this);
 		blockEventListener = new Blocks(this);
 		entityEventListener = new Entities(this);
